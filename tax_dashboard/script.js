@@ -80,6 +80,11 @@ function safe(fn, label) {
 }
 
 function init() {
+  if (!dataGuard({
+    KUAIBAO: typeof KUAIBAO !== 'undefined' ? KUAIBAO : undefined,
+    DISTRICTS: typeof DISTRICTS !== 'undefined' ? DISTRICTS : undefined,
+    TAIPEI_GEOJSON: typeof TAIPEI_GEOJSON !== 'undefined' ? TAIPEI_GEOJSON : undefined,
+  }, '稅收儀表板')) return;
   periods = [...new Set(KUAIBAO.map((r) => r[COLS.ym]))].sort((a, b) => a - b);
   state.year = String(parseROC(periods[periods.length - 1]).roc);
   safe(buildYearSelect, 'buildYearSelect');
