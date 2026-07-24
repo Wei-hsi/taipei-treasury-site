@@ -31,7 +31,7 @@ function renderSuite(activeKey) {
             <path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M20 10v11M8 14v3M12 14v3M16 14v3"/></svg>
         </span>
         <span>
-          <span class="suite-brand__title">臺北市財政局 · 開放資料應用</span><br>
+          <span class="suite-brand__title">臺北市資料大平臺 · 開放資料應用</span><br>
           <span class="suite-brand__sub">Taipei Finance Open Data Suite（學習版）</span>
         </span>
       </a>
@@ -42,7 +42,7 @@ function renderSuite(activeKey) {
   const mount = document.getElementById('suite');
   if (mount) mount.outerHTML = html;
   else document.body.insertAdjacentHTML('afterbegin', html);
-  document.title = (APPS.find((a) => a.key === activeKey)?.label || '臺北市財政局') + ' · 臺北市財政局開放資料（學習版）';
+  document.title = (APPS.find((a) => a.key === activeKey)?.label || '臺北市資料大平臺') + ' · 臺北市資料大平臺開放資料（學習版）';
 }
 
 /*
