@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>活化地圖 · 臺北市財政局開放資料</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/tokens.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+  <div id="suite"></div>
+
+  <main class="wrap">
+    <div class="page-head">
+      <div>
+        <h1>市有土地活化地圖</h1>
+        <div class="sub" id="period">載入中…</div>
+      </div>
+    </div>
+
+    <section class="grid grid--kpi" id="kpis" style="margin-top:16px" aria-label="重點指標"></section>
+
+    <section id="insights" style="margin-top:14px"></section>
+
+    <section class="grid grid--2" style="margin-top:14px">
+      <div class="card">
+        <div class="block-head"><h2 class="card__title">市有財產結構（依性質別）</h2><span class="card__hint" id="donutHint"></span></div>
+        <div id="donut" class="chart" style="height:300px"></div>
+      </div>
+      <div class="card">
+        <div class="block-head"><h2 class="card__title">近 5 年市有財產總額趨勢</h2></div>
+        <div id="trend" class="chart" style="height:300px"></div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head"><h2 class="card__title">都市更新辦理情形</h2><span class="card__hint">市有土地參與都更案件，依最新辦理階段</span></div>
+      <div id="urbanChart" class="chart" style="height:300px"></div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head">
+        <h2 class="card__title">市有閒置／尚未利用土地地圖</h2>
+        <select class="field" id="mapMetric" aria-label="選擇地圖指標"></select>
+      </div>
+      <div id="landMap" style="height:420px;border-radius:var(--radius);overflow:hidden"></div>
+      <div id="mapLegend" class="map-legend"></div>
+      <div class="card__hint" id="mapNote" style="margin-top:8px"></div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head">
+        <h2 class="card__title">市有非公用閒置土地清冊</h2>
+        <input class="field" id="idleSearch" placeholder="搜尋地號 / 使用分區…" style="min-width:200px">
+      </div>
+      <div class="table-wrap" id="idleTableWrap"></div>
+    </section>
+
+    <section class="grid grid--2" style="margin-top:14px">
+      <div class="card">
+        <div class="block-head"><h2 class="card__title">尚未利用土地清冊</h2></div>
+        <div class="table-wrap" id="unusedLandWrap"></div>
+      </div>
+      <div class="card">
+        <div class="block-head"><h2 class="card__title">尚未利用建物清冊</h2></div>
+        <div class="table-wrap" id="unusedBldgWrap"></div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head">
+        <h2 class="card__title">標售不動產歷程</h2>
+        <div class="controls">
+          <select class="field" id="saleFilter"></select>
+          <input class="field" id="saleSearch" placeholder="搜尋標案 / 地號…" style="min-width:200px">
+        </div>
+      </div>
+      <div class="table-wrap" id="saleTableWrap"></div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head">
+        <h2 class="card__title">市有閒置房地公開標租清冊</h2>
+        <input class="field" id="leaseSearch" placeholder="搜尋門牌 / 地號…" style="min-width:200px">
+      </div>
+      <div class="table-wrap" id="leaseTableWrap"></div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head"><h2 class="card__title">認養綠美化土地清冊</h2></div>
+      <div class="table-wrap" id="adoptTableWrap"></div>
+    </section>
+
+    <div class="source" id="source">
+      資料來源：臺北市資料大平臺 data.taipei（臺北市政府財政局）「近五年市有財產總目錄」「市有非公用閒置土地／建物清冊」
+      「市有尚未利用土地／建物清冊」「市有閒置房地公開標租清冊」「標售不動產歷程表」「市有土地參與都市更新案件進度表」
+      「認養綠美化土地清冊」。
+    </div>
+  </main>
+
+  <script src="../shared/nav.js"></script>
+  <script>renderSuite('land_active_map');</script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="_data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

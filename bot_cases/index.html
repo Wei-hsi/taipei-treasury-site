@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>促參透明 · 臺北市財政局開放資料</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/tokens.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+  <div id="suite"></div>
+
+  <main class="wrap">
+    <div class="page-head">
+      <div>
+        <h1>促參／BOT 透明資料庫</h1>
+        <div class="sub" id="period">載入中…</div>
+      </div>
+    </div>
+
+    <section class="grid grid--kpi" id="kpis" style="margin-top:16px" aria-label="重點指標"></section>
+
+    <section id="insights" style="margin-top:14px"></section>
+
+    <section class="grid grid--2" style="margin-top:14px">
+      <div class="card">
+        <div class="block-head"><h2 class="card__title">各促參類型 · 件數與民間投資</h2></div>
+        <div id="typeChart" class="chart" style="height:320px"></div>
+      </div>
+      <div class="card">
+        <div class="block-head"><h2 class="card__title">各辦理階段 · 案件數</h2></div>
+        <div id="stageChart" class="chart" style="height:320px"></div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head"><h2 class="card__title">★ 監督視角 · 權利金回饋率（權利金累計 ÷ 民間投資）</h2>
+        <span class="card__hint">民間投資 ≥ 1 億元之案件，回饋率前 15 名</span></div>
+      <div id="royaltyChart" class="chart" style="height:460px"></div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head">
+        <h2 class="card__title">已簽約案件清單</h2>
+        <div class="controls">
+          <select class="field" id="filterType"></select>
+          <select class="field" id="filterAgency"></select>
+          <input class="field" id="filterSearch" placeholder="搜尋計畫 / 廠商…" style="min-width:180px">
+        </div>
+      </div>
+      <div class="table-wrap" id="contractsTableWrap"></div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head"><h2 class="card__title">市有土地活化地圖 · 設定地上權案</h2>
+        <span class="card__hint">圓圈大小＝決標權利金</span></div>
+      <div id="supMap" style="height:420px;border-radius:var(--radius);overflow:hidden"></div>
+      <div id="mapLegend" class="map-legend"></div>
+      <div class="card__hint" id="mapNote" style="margin-top:8px"></div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head"><h2 class="card__title">地上權專區 · 市有非公用土地設定地上權</h2>
+        <span class="card__hint">含新光三越A9、艾美酒店、遠東百貨等地標案件</span></div>
+      <div class="table-wrap" id="supTableWrap"></div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head">
+        <h2 class="card__title">市有財產委託經營</h2>
+        <input class="field" id="entrustedSearch" placeholder="搜尋案件 / 機關 / 受託單位…" style="min-width:200px">
+      </div>
+      <div class="table-wrap" id="entrustedTableWrap"></div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head"><h2 class="card__title">相關資訊</h2></div>
+      <ul style="margin:8px 0 0;padding-left:20px;font-size:13.5px;color:var(--text-2);line-height:2">
+        <li><a href="https://data.taipei" target="_blank" rel="noopener">臺北市資料大平臺 data.taipei</a></li>
+        <li><a href="https://www.publicbid.taipei/" target="_blank" rel="noopener">臺北市政府公共建設暨資產運用</a></li>
+      </ul>
+    </section>
+
+    <div class="source" id="source">
+      資料來源：臺北市資料大平臺 data.taipei（臺北市政府財政局）「依促參法辦理之已簽約案件明細表」
+      「市有非公用土地設定地上權案已簽約一覽表」「已簽約委託經營案件明細表」「促參案件統計表」。
+    </div>
+  </main>
+
+  <script src="../shared/nav.js"></script>
+  <script>renderSuite('bot_cases');</script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="_data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

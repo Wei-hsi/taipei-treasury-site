@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>稅收儀表板 · 臺北市財政局開放資料</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/tokens.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+  <div id="suite"></div>
+
+  <main class="wrap">
+    <div class="page-head">
+      <div>
+        <h1>臺北市稅收儀表板</h1>
+        <div class="sub" id="period">載入中…</div>
+      </div>
+      <div class="controls">
+        <select class="field" id="yearSel" aria-label="選擇年度"></select>
+      </div>
+    </div>
+
+    <section class="grid grid--kpi" id="kpis" style="margin-top:16px" aria-label="重點指標"></section>
+
+    <section id="insights" style="margin-top:14px"></section>
+
+    <section class="grid grid--2" style="margin-top:14px">
+      <div class="card">
+        <div class="block-head"><h2 class="card__title">各稅目占比（本年累計）</h2></div>
+        <div id="donut" class="chart" style="height:280px"></div>
+      </div>
+      <div class="card">
+        <div class="block-head"><h2 class="card__title">全年預算達成率</h2><span class="card__hint" id="gaugeHint"></span></div>
+        <div id="gauge" class="chart" style="height:280px"></div>
+      </div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head">
+        <h2 class="card__title">逐月實徵淨額 · 本年 vs 去年同月</h2>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <select class="field" id="taxSel" aria-label="選擇稅目"></select>
+          <div class="legend">
+            <span><i style="background:var(--c1)"></i>本年</span>
+            <span><i style="background:var(--gold)"></i>去年同月</span>
+          </div>
+        </div>
+      </div>
+      <div id="trend" class="chart" style="height:300px"></div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head"><h2 class="card__title">各稅目預算達成率（本年累計）</h2></div>
+      <div id="achieve" class="chart" style="height:320px"></div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head">
+        <h2 class="card__title">各行政區稅負地圖</h2>
+        <select class="field" id="mapMetric" aria-label="選擇地圖指標"></select>
+      </div>
+      <div id="taxmap" style="height:420px;border-radius:var(--radius);overflow:hidden"></div>
+      <div id="mapLegend" class="map-legend"></div>
+      <div class="card__hint" id="mapNote" style="margin-top:8px"></div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head"><h2 class="card__title">本月明細</h2><span class="card__hint" id="tableHint"></span></div>
+      <div class="table-wrap"><table class="data" id="detailTable"></table></div>
+    </section>
+
+    <section class="card" style="margin-top:14px">
+      <div class="block-head"><h2 class="card__title">相關資訊</h2></div>
+      <ul style="margin:8px 0 0;padding-left:20px;font-size:13.5px;color:var(--text-2);line-height:2">
+        <li><a href="https://tpctax.gov.taipei/" target="_blank" rel="noopener">臺北市稅捐稽徵處 官方網站</a></li>
+        <li><a href="https://tpctax.gov.taipei/cp.aspx?n=F34ED8B64FB090F0" target="_blank" rel="noopener">最新業務統計報表</a></li>
+        <li><a href="https://data.taipei" target="_blank" rel="noopener">臺北市資料大平臺 data.taipei</a></li>
+      </ul>
+    </section>
+
+    <div class="source" id="source">
+      資料來源：臺北市資料大平臺 data.taipei（臺北市政府財政局）「臺北市各項稅收快報」「地價稅／房屋稅開徵概況（按行政區）」。
+    </div>
+  </main>
+
+  <script src="../shared/nav.js"></script>
+  <script>renderSuite('tax_dashboard');</script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="_data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+/*
+ * 臺北市財政局開放資料應用 — 共用設計系統
+ * 忠實採用參考網站 tyctc128.github.io/tpc_finance_app 的視覺語言，
+ * 讓「稅收儀表板／促參透明／市庫健康／活化地圖」風格一致。
+ * 主色 深藍 = 財政/信任，輔色 金 = 金流。支援淺色/深色模式。
+ */
+
+:root {
+  /* 品牌色 */
+  --brand: #0B3D6B;
+  --brand-600: #0e4a82;
+  --brand-300: #9db8d6;
+  --gold: #C8A04B;
+  --gold-soft: #E0C27A;
+
+  /* 語意色 */
+  --pos: #1d9e75;   /* 正成長/達成 */
+  --neg: #c0433b;   /* 負成長/債務/警示 */
+  --warn: #b9821a;
+
+  /* 表面與文字（淺色模式） */
+  --page: #f4f6f9;
+  --surface: #ffffff;
+  --surface-2: #f7f9fc;
+  --border: #e3e8ef;
+  --border-strong: #cfd7e2;
+  --text: #1a2430;
+  --text-2: #5a6877;
+  --text-muted: #8b97a6;
+
+  /* 圖表色盤（與品牌一致，canvas 用固定 hex） */
+  --c1: #0B3D6B;
+  --c2: #1C6FB0;
+  --c3: #3E92CC;
+  --c4: #7FB2D9;
+  --c5: #C8A04B;
+  --c6: #E0C27A;
+  --c7: #5DCAA5;
+  --c8: #B4B2A9;
+
+  /* 版面 */
+  --radius: 8px;
+  --radius-card: 12px;
+  --maxw: 1160px;
+  --font: "Noto Sans TC", system-ui, -apple-system, "Microsoft JhengHei", sans-serif;
+  --shadow: 0 1px 2px rgba(16, 32, 56, .04), 0 1px 8px rgba(16, 32, 56, .04);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #0e1620;
+    --surface: #18222e;
+    --surface-2: #131c26;
+    --border: #283543;
+    --border-strong: #38485a;
+    --text: #e7edf4;
+    --text-2: #a9b6c4;
+    --text-muted: #7d8a99;
+    --brand: #12508c;
+    --brand-300: #7ea3c9;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--page);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px 40px; }
+
+/* ── 共用頁首 / suite 切換列 ───────────────────────── */
+.suite-bar { background: var(--brand); color: #fff; }
+.suite-bar__inner {
+  max-width: var(--maxw); margin: 0 auto; padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px;
+}
+.suite-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.suite-brand__mark {
+  width: 32px; height: 32px; border-radius: 8px; background: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  color: #3a2e0c; font-size: 19px; flex: none;
+}
+.suite-brand__title { color: #fff; font-size: 15px; font-weight: 500; line-height: 1.2; }
+.suite-brand__sub { color: var(--brand-300); font-size: 12px; line-height: 1.2; }
+
+.suite-nav { display: flex; gap: 4px; flex-wrap: wrap; }
+.suite-nav a {
+  color: var(--brand-300); font-size: 13.5px; text-decoration: none;
+  padding: 7px 13px; border-radius: 7px; display: inline-flex; align-items: center; gap: 6px;
+  border-bottom: 2px solid transparent; transition: background .15s, color .15s;
+}
+.suite-nav a:hover { background: rgba(255,255,255,.10); color: #fff; }
+.suite-nav a.active { color: #fff; background: rgba(255,255,255,.12); border-bottom-color: var(--gold); }
+
+/* ── 頁面標題列 ───────────────────────── */
+.page-head {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px; padding: 22px 0 6px;
+}
+.page-head h1 { margin: 0; font-size: 22px; font-weight: 500; }
+.page-head .sub { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+.page-head .lede { color: var(--text-2); font-size: 14px; margin-top: 10px; max-width: 720px; }
+
+/* ── 卡片 ───────────────────────── */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-card); padding: 16px 18px; box-shadow: var(--shadow);
+}
+.card__title { font-size: 15px; font-weight: 500; margin: 0 0 4px; }
+.card__hint { font-size: 12px; color: var(--text-muted); }
+
+.grid { display: grid; gap: 14px; }
+.grid--kpi { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.grid--2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+/* ── KPI 數字卡 ───────────────────────── */
+.kpi {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-card); padding: 15px 17px; box-shadow: var(--shadow);
+}
+.kpi__label { font-size: 13px; color: var(--text-2); margin-bottom: 7px; }
+.kpi__value { font-size: 25px; font-weight: 500; letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+.kpi__value small { font-size: 14px; color: var(--text-muted); font-weight: 400; }
+.kpi__sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+.kpi__delta { font-size: 12.5px; margin-top: 5px; display: flex; align-items: center; gap: 4px; }
+.kpi__delta.up { color: var(--pos); }
+.kpi__delta.down { color: var(--neg); }
+.kpi__delta.flat { color: var(--text-muted); }
+
+/* ── 圖表容器 ───────────────────────── */
+.chart { width: 100%; }
+
+/* ── 區塊標題 + 圖例 ───────────────────────── */
+.block-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12.5px; color: var(--text-2); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+.legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.legend i.line { width: 13px; height: 3px; }
+
+/* ── 控制元件（下拉/分段） ───────────────────────── */
+.controls { display: flex; gap: 8px; flex-wrap: wrap; }
+.seg { display: inline-flex; border: 1px solid var(--border-strong); border-radius: var(--radius); overflow: hidden; }
+.seg button {
+  border: 0; background: var(--surface); color: var(--text-2);
+  font: inherit; font-size: 13px; padding: 6px 13px; cursor: pointer;
+}
+.seg button + button { border-left: 1px solid var(--border); }
+.seg button.active { background: var(--brand); color: #fff; }
+select.field, input.field {
+  font: inherit; font-size: 13px; color: var(--text); background: var(--surface);
+  border: 1px solid var(--border-strong); border-radius: var(--radius); padding: 6px 10px;
+}
+select.field { cursor: pointer; min-width: 110px; }
+
+/* ── 資料表 ───────────────────────── */
+.table-wrap { overflow: auto; max-height: 560px; }
+table.data { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+table.data th, table.data td { padding: 9px 12px; text-align: right; border-bottom: 1px solid var(--border); white-space: nowrap; }
+table.data th:first-child, table.data td:first-child { text-align: left; }
+table.data thead th { color: var(--text-2); font-weight: 500; background: var(--surface-2); position: sticky; top: 0; }
+table.data tbody tr:hover { background: var(--surface-2); }
+table.data td.num { font-variant-numeric: tabular-nums; }
+table.data td.cat { font-weight: 500; }
+
+/* ── 標記 / 註腳 ───────────────────────── */
+.tag { font-size: 12px; padding: 2px 9px; border-radius: var(--radius); display: inline-flex; align-items: center; gap: 4px; }
+.tag--warn { background: rgba(185,130,26,.14); color: var(--warn); }
+.tag--pos { background: rgba(29,158,117,.14); color: var(--pos); }
+.tag--neg { background: rgba(192,67,59,.14); color: var(--neg); }
+.tag--ai { background: rgba(11,61,107,.10); color: var(--brand-600); }
+@media (prefers-color-scheme: dark) { .tag--ai { background: rgba(126,163,201,.16); color: var(--brand-300); } }
+
+/* ── 重點洞察 ───────────────────────── */
+.insight-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.insight {
+  border: 1px solid var(--border); border-left: 3px solid var(--tone, var(--brand));
+  border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 14px; background: var(--surface-2);
+}
+.insight__head { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
+.insight__title { font-size: 14px; font-weight: 500; }
+.insight__detail { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+/* ── 一般提示（例如「這是示範資料」）沿用 insight 卡片語彙 ────── */
+.note {
+  border: 1px solid var(--border); border-left: 3px solid var(--tone, var(--warn));
+  border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 14px; background: var(--surface-2);
+  font-size: 13px; color: var(--text-2); line-height: 1.6;
+}
+.note b { color: var(--text); }
+
+/* ── 地圖 ───────────────────────── */
+.map-legend { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: 12px; color: var(--text-2); flex-wrap: wrap; }
+.map-legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.leaflet-popup-content { font-family: var(--font); }
+
+/* ── 相關輿情 ───────────────────────── */
+.senti-pills { display: flex; gap: 12px; font-size: 12.5px; color: var(--text-2); }
+.senti-pill { display: inline-flex; align-items: center; gap: 5px; }
+.senti-pill i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.senti-bar { display: flex; height: 7px; border-radius: 4px; overflow: hidden; background: var(--surface-2); margin: 4px 0 14px; }
+.senti-bar span { display: block; height: 100%; }
+
+.news-list { display: grid; gap: 2px; }
+.news-item {
+  display: flex; gap: 11px; padding: 11px 8px; border-radius: var(--radius);
+  text-decoration: none; color: inherit; border-bottom: 1px solid var(--border);
+}
+.news-item:last-child { border-bottom: 0; }
+.news-item:hover { background: var(--surface-2); }
+.news-dot { width: 9px; height: 9px; border-radius: 50%; margin-top: 6px; flex: none; }
+.news-main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.news-title { font-size: 14.5px; font-weight: 500; line-height: 1.45; }
+.news-item:hover .news-title { color: var(--brand-600); text-decoration: underline; }
+.news-sum { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+.news-meta { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+.news-topic { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1px 7px; color: var(--text-2); }
+@media (prefers-color-scheme: dark) { .news-topic { background: var(--page); } }
+
+.source {
+  margin: 18px 0 32px; font-size: 12.5px; color: var(--text-muted);
+  display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+}
+.source a { color: var(--text-2); }
+
+.skeleton { color: var(--text-muted); font-size: 13px; padding: 30px 0; text-align: center; }
+
+/* ============================================================
+ * 以下為本學習版新增的頁面型態（敘事型頁面／首頁／準備中頁），
+ * 參考網站沒有對應樣式，維持同一套色彩與圓角語彙延伸設計。
+ * ============================================================ */
+
+/* 敘事帶狀標題（money_healthy 使用） */
+.band { padding: 4px 0 0; }
+.band__head {
+  margin: 0; font-size: 19px; font-weight: 500; color: var(--brand);
+  display: inline-flex; align-items: center; gap: 9px;
+}
+.band__head::before {
+  content: ""; width: 5px; height: 20px; border-radius: 3px;
+  background: var(--gold); display: inline-block;
+}
+@media (prefers-color-scheme: dark) { .band__head { color: var(--brand-300); } }
+.band__lead { margin: 6px 0 0; font-size: 13.5px; color: var(--text-2); max-width: 760px; }
+
+/* 首頁大卡片 */
+.hub-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-top: 24px; }
+.hub-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card);
+  padding: 22px; box-shadow: var(--shadow); text-decoration: none; color: inherit; display: block; transition: transform .15s, box-shadow .15s; }
+.hub-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(16,32,56,.10); }
+.hub-card__icon { width: 42px; height: 42px; border-radius: 10px; background: var(--brand); color: #fff;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+.hub-card__title { font-size: 17px; font-weight: 500; margin-bottom: 6px; }
+.hub-card__desc { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+.hub-card__status { display:inline-block; margin-top:10px; font-size:11.5px; padding:2px 9px; border-radius: var(--radius); }
+
+/* 準備中頁面 */
+.coming-soon { text-align:center; padding: 60px 20px; }
+.coming-soon h2 { color: var(--brand); font-size: 20px; }
+.coming-soon p { color: var(--text-2); max-width: 560px; margin: 10px auto 0; font-size: 14px; line-height: 1.7; }
+.need-list { text-align:left; max-width: 620px; margin: 22px auto 0; background: var(--surface-2);
+  border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 20px; font-size: 13px; color: var(--text-2); }
+.need-list li { margin: 4px 0; }

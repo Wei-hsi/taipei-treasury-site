@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>市庫出納站 · 臺北市集中支付與預算執行開放資料</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/tokens.css">
+</head>
+<body>
+  <div id="suite"></div>
+
+  <main class="wrap">
+    <div class="page-head">
+      <div>
+        <h1>臺北市 市庫出納站</h1>
+        <div class="sub" id="period">載入中…</div>
+        <p class="lede">
+          臺北市政府每天要收錢、也要付錢給各機關、廠商和員工，這一整套流程叫做「集中支付」，
+          就像全家共用一個大帳戶，由一個窗口統一收付款。這個網站把 8 份公開資料整理成國中生也看得懂的圖表，
+          帶你看懂市政府的錢是怎麼進來、怎麼付出去的。
+        </p>
+      </div>
+    </div>
+
+    <!-- Hero KPI -->
+    <section class="grid grid--kpi" id="kpis" aria-label="市庫重點指標">
+      <div class="skeleton">載入中…</div>
+    </section>
+
+    <section id="insights" style="margin-top:14px"></section>
+
+    <!-- 1. 錢怎麼付出去 -->
+    <section class="band" style="margin-top:26px">
+      <h2 class="band__head">錢怎麼「付」出去？</h2>
+      <p class="band__lead" id="leadPayMethod">近 5 年，臺北市付款主要透過三種方式：電子轉帳、郵寄支票、候領支票。</p>
+    </section>
+    <section class="grid grid--2" style="margin-top:6px">
+      <div class="card">
+        <div class="block-head"><h3 class="card__title">近 5 年付款金額組成</h3><span class="card__hint">單位：億元</span></div>
+        <div id="payMethodTrend" class="chart" style="height:300px"></div>
+      </div>
+      <div class="card">
+        <div class="block-head"><h3 class="card__title">最新年度付款方式占比</h3><span class="card__hint">單位：億元</span></div>
+        <div id="payMethodDonut" class="chart" style="height:300px"></div>
+      </div>
+    </section>
+    <div class="note">
+      🧒 <b>國中生看重點：</b>「電匯存帳」就是我們平常說的「轉帳」，政府現在幾乎都用這種方式付錢，
+      支票只占非常小一部分，就像你我現在很少再用現金或支票，大多改用手機轉帳一樣。
+    </div>
+
+    <!-- 2. 錢從哪個口袋出去 -->
+    <section class="band" style="margin-top:26px">
+      <h2 class="band__head">錢是從哪個「口袋」出去的？</h2>
+      <p class="band__lead" id="leadPayCategory">市庫付出去的錢，其實來自好幾個不同的「口袋」（帳戶科目）。</p>
+    </section>
+    <section class="card" style="margin-top:6px">
+      <div class="block-head"><h3 class="card__title">近 5 年支付金額組成（依科目別）</h3><span class="card__hint">單位：億元</span></div>
+      <div id="payCategory" class="chart" style="height:380px"></div>
+    </section>
+    <div class="note">
+      🧒 <b>國中生看重點：</b>「年度預算支付數」就像是家裡每個月固定的生活費，是最大宗的支出；
+      「特種基金」則像是專款專用的存錢筒（例如自來水、停車場基金），不能隨便挪用到別的地方。
+    </div>
+
+    <!-- 3. 政府有多忙 -->
+    <section class="band" style="margin-top:26px">
+      <h2 class="band__head">政府「收付款」有多忙？</h2>
+      <p class="band__lead" id="leadAgencyDocs">每一筆收付款都要開立憑單，這些憑單的數量能看出行政作業量的變化。</p>
+    </section>
+    <section class="card" style="margin-top:6px">
+      <div class="block-head"><h3 class="card__title">近 5 年支用機關數與憑單件數</h3><span class="card__hint">左軸：件數／右軸：機關數</span></div>
+      <div id="agencyDocs" class="chart" style="height:320px"></div>
+    </section>
+    <div class="note">
+      🧒 <b>國中生看重點：</b>「憑單」就像收據或轉帳明細，政府每付一筆錢、每收一筆錢，都要留下紀錄，
+      這樣才能被監督、被稽核，確保每一塊錢都花得清清楚楚。
+    </div>
+
+    <!-- 4. 錢花到哪裡 -->
+    <section class="band" style="margin-top:26px">
+      <h2 class="band__head">這筆錢，花到哪個機關？做了什麼用途？</h2>
+      <p class="band__lead" id="leadBudget">同一筆預算，可以用「哪個機關（主管別）」或「做什麼事（政事別）」兩種角度來看，剛好可以互相對照。</p>
+    </section>
+    <section class="card" style="margin-top:6px">
+      <div class="block-head">
+        <h3 class="card__title">年度預算執行率排行</h3>
+        <div class="seg" id="budgetSeg">
+          <button data-mode="org" class="active">依機關別</button>
+          <button data-mode="func">依用途別</button>
+        </div>
+      </div>
+      <div id="budgetBar" class="chart" style="height:520px"></div>
+      <div id="budgetTableWrap"></div>
+    </section>
+    <div class="note">
+      🧒 <b>國中生看重點：</b>「執行率」＝實際花掉的錢 ÷ 分配到的預算。執行率太低可能代表計畫延遲；
+      但太低也不一定是壞事，例如「還債利息」執行率低，可能是因為利息比預期低，反而幫市庫省了錢。
+    </div>
+
+    <!-- 5. 舊帳還了嗎 -->
+    <section class="band" style="margin-top:26px">
+      <h2 class="band__head">以前欠下的舊帳，還完了嗎？</h2>
+      <p class="band__lead" id="leadArrears">政府去年度以前答應要付、但還沒付完的錢，叫做「應付歲出款」，一樣可以用兩種角度互相對照。</p>
+    </section>
+    <section class="card" style="margin-top:6px">
+      <div class="block-head">
+        <h3 class="card__title">尚未付完的舊帳排行（前 12 名）</h3>
+        <div class="seg" id="arrearsSeg">
+          <button data-mode="org" class="active">依機關別</button>
+          <button data-mode="func">依用途別</button>
+        </div>
+      </div>
+      <div id="arrearsBar" class="chart" style="height:420px"></div>
+    </section>
+    <div class="note">
+      🧒 <b>互相對照的例子：</b>「勞動局主管」的舊帳只付了 6.83%；換成用途別來看，對應的「國民就業支出」也只付了 2.23%。
+      兩份不同分類方式的資料，講的其實是同一件事，這就是「相互比對」——從不同角度驗證同一筆錢的狀況。
+    </div>
+
+    <div class="source" id="source"></div>
+  </main>
+
+  <script src="../shared/nav.js"></script>
+  <script>renderSuite('money_healthy');</script>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
