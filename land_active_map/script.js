@@ -41,13 +41,25 @@ const DIST_LIST = ['中正區','大同區','中山區','松山區','大安區','
 function norm(d) { if (!d) return null; return d.endsWith('區') ? d : d + '區'; }
 
 let map, mapLayer;
-const latestYear = Math.max(...PROPERTY.map((r) => r['年度']));
+let latestYear;
 
 function safe(fn, label) {
   try { fn(); } catch (e) { console.error(`[land_active_map] ${label} 失敗:`, e); }
 }
 
 function init() {
+  if (!dataGuard({
+    PROPERTY: typeof PROPERTY !== 'undefined' ? PROPERTY : undefined,
+    IDLE_LAND: typeof IDLE_LAND !== 'undefined' ? IDLE_LAND : undefined,
+    UNUSED_LAND: typeof UNUSED_LAND !== 'undefined' ? UNUSED_LAND : undefined,
+    UNUSED_BLDG: typeof UNUSED_BLDG !== 'undefined' ? UNUSED_BLDG : undefined,
+    LEASE: typeof LEASE !== 'undefined' ? LEASE : undefined,
+    SALE: typeof SALE !== 'undefined' ? SALE : undefined,
+    URBAN: typeof URBAN !== 'undefined' ? URBAN : undefined,
+    ADOPT: typeof ADOPT !== 'undefined' ? ADOPT : undefined,
+    TAIPEI_GEOJSON: typeof TAIPEI_GEOJSON !== 'undefined' ? TAIPEI_GEOJSON : undefined,
+  }, '市有土地活化地圖')) return;
+  latestYear = Math.max(...PROPERTY.map((r) => r['年度']));
   document.getElementById('period').textContent =
     `市有財產資料至 ${latestYear}年12月 · 閒置／尚未利用房地清冊 · 金額單位：新臺幣`;
   safe(renderKPIs, 'renderKPIs');
