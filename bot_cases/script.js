@@ -39,6 +39,12 @@ function safe(fn, label) {
 }
 
 function init() {
+  if (!dataGuard({
+    TYPE_SUMMARY: typeof TYPE_SUMMARY !== 'undefined' ? TYPE_SUMMARY : undefined,
+    CONTRACTS: typeof CONTRACTS !== 'undefined' ? CONTRACTS : undefined,
+    SUPERFICIES: typeof SUPERFICIES !== 'undefined' ? SUPERFICIES : undefined,
+    ENTRUSTED: typeof ENTRUSTED !== 'undefined' ? ENTRUSTED : undefined,
+  }, '促參／BOT 透明資料庫')) return;
   const totalSigned = TYPE_SUMMARY.reduce((s, t) => s + t['已結案'] + t['履約中'], 0);
   document.getElementById('period').textContent =
     `已簽約案件 ${comma(totalSigned)} 件 · 地上權 ${comma(TYPE_SUMMARY.find(t=>t.type==='設定地上權').count)} 案 · `
