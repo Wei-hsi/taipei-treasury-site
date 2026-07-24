@@ -93,7 +93,6 @@ function renderKPIs() {
 
   const cards = [
     { label: `市有財產總額（${latestYear}年）`, value: moneyAuto(totalAssetYuan) + ' 元', sub: '土地、房屋、設備等 6 大類加總' },
-    /{  label: `市有財產總額（${latestYear}年）`,  value: Number(totalAssetYuan).toLocaleString('zh-TW') + ' 元',  sub: '土地、房屋、設備等 6 大類加總'}/
     { label: '閒置土地', value: comma(idleCount) + ' <small>筆</small>', sub: `列管面積合計約 ${comma(idleArea)} ㎡` },
     { label: '尚未利用土地／建物', value: comma(unusedCount) + ' <small>筆</small>', sub: `土地 ${UNUSED_LAND.length} 筆・建物 ${UNUSED_BLDG.length} 筆` },
     { label: '標售已標脫金額', value: moneyAuto(soldYuan) + ' 元', sub: `累計 ${comma(soldCount)} 件已標脫` },
