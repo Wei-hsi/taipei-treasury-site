@@ -44,3 +44,27 @@ function renderSuite(activeKey) {
   else document.body.insertAdjacentHTML('afterbegin', html);
   document.title = (APPS.find((a) => a.key === activeKey)?.label || '臺北市財政局') + ' · 臺北市財政局開放資料（學習版）';
 }
+
+/*
+ * 資料載入防呆：在各頁 init() 最前面呼叫，確認 _data.js 內的全域變數都存在。
+ * 若有遺漏（常見原因：_data.js 上傳失敗或路徑錯誤），會在畫面上顯示明確錯誤訊息，
+ * 而不是讓整個頁面卡在「載入中」卻不知道為什麼。
+ * 用法：if (!dataGuard(['PROPERTY','IDLE_LAND'], '市有土地活化地圖')) return;
+ */
+function dataGuard(dataMap, appLabel) {
+  const missing = Object.entries(dataMap).filter(([, v]) => typeof v === 'undefined').map(([k]) => k);
+  if (missing.length === 0) return true;
+  const msg = `⚠️ ${appLabel || '這個頁面'}的資料檔沒有正確載入（缺少：${missing.join('、')}）。
+    最常見原因是 _data.js 檔案上傳失敗或路徑不對，
+    請確認這個資料夾裡的 _data.js 檔案存在、大小不是 0KB，且路徑正確，重新上傳後整理再試一次。`;
+  const period = document.getElementById('period');
+  if (period) { period.textContent = ''; }
+  const banner = document.createElement('div');
+  banner.className = 'card';
+  banner.style.cssText = 'margin-top:16px;border-left:3px solid var(--neg);background:var(--surface-2);white-space:pre-line;font-size:13.5px;color:var(--text-2);padding:14px 16px';
+  banner.textContent = msg;
+  const main = document.querySelector('main.wrap');
+  if (main) main.insertBefore(banner, main.children[1] || null);
+  console.error('[dataGuard]', appLabel, '缺少全域變數:', missing);
+  return false;
+}
