@@ -1170,6 +1170,7 @@ function safe(fn, label) {
 }
 
 function init() {
+  if (!dataGuard({ DATA: typeof DATA !== 'undefined' ? DATA : undefined }, '市庫健康')) return;
   safe(renderKPIs, 'renderKPIs');
   safe(renderInsights, 'renderInsights');
   safe(renderPayMethod, 'renderPayMethod');
